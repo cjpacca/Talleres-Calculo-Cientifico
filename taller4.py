@@ -30,6 +30,10 @@ def calcular_pagerank(M, nombre_grafo, d=0.85, tol=1e-8):
         # Multiplicación matriz-vector: v^(k+1) = G * v^(k)
         v_siguiente = np.dot(G, v)
         
+        # Normalizamos el vector para que la suma de probabilidades siempre sea 1
+        # Esto evita que el prestigio se fugue en grafos con nodos sumideros
+        v_siguiente = v_siguiente / np.sum(v_siguiente)
+
         # Calculamos el error como la norma 1 (distancia) entre iteraciones
         error = np.linalg.norm(v_siguiente - v, 1)
         
